@@ -1,5 +1,6 @@
 {
-    "project_name": "Pyramid Scaffold",
+    "project_name": "Namespaced Pyramid Scaffold",
+    "namespace": "",
     "repo_name": "{{cookiecutter.project_name.lower().strip().replace(' ', '_').replace(':', '_').replace('-', '_').replace('!', '_')}}",
     "template_language": ["jinja2", "chameleon", "mako"],
     "backend": ["none", "sqlalchemy", "zodb"],

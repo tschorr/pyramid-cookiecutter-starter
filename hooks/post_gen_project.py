@@ -15,7 +15,11 @@ def main():
 def clean_unused_template_settings():
     selected_lang = '{{ cookiecutter.template_language }}'
     templates = os.path.join(
-        WORKING, '{{cookiecutter.repo_name}}', 'base_templates')
+        WORKING,
+        'src',
+        '{{cookiecutter.namespace}}',
+        '{{cookiecutter.repo_name}}',
+        'base_templates')
 
     if selected_lang == 'chameleon':
         extension = '.pt'
@@ -47,9 +51,16 @@ def clean_unused_backend():
         rm_prefixes = ['sqlalchemy_']
 
     scaffold_directory = os.path.join(
-                WORKING, '{{cookiecutter.repo_name}}')
+        WORKING,
+        'src',
+        '{{cookiecutter.namespace}}',
+        '{{cookiecutter.repo_name}}')
 
     delete_other_files(scaffold_directory, prefix, rm_prefixes)
+    if 'sqlalchemy_' in rm_prefixes:
+        shutil.rmtree(
+            os.path.join(
+                WORKING, 'alembic'))
 
 
 def delete_other_files(directory, current_prefix, rm_prefixes):
@@ -116,7 +127,7 @@ def display_actions_message():
         %(separator)s
 
         Change directory into your newly created project.
-            cd {{ cookiecutter.repo_name }}
+            cd {{ cookiecutter.namespace }}.{{ cookiecutter.repo_name }}
 
         Create a Python virtual environment.
             %(venv_cmd)s %(venv)s
@@ -142,7 +153,7 @@ def display_actions_message():
 
         Run your project.
             %(pserve_cmd)s development.ini
-        """ % env_setup)
+        """ % env_setup)  # noqa: E501
     print(msg)
 
 

@@ -37,7 +37,7 @@ tests_require = [
 ]
 
 setup(
-    name='{{ cookiecutter.repo_name }}',
+    name='{{ cookiecutter.namespace }}.{{ cookiecutter.repo_name }}',
     version='0.0',
     description='{{ cookiecutter.project_name }}',
     long_description=README + '\n\n' + CHANGES,
@@ -51,7 +51,9 @@ setup(
     author_email='',
     url='',
     keywords='web pyramid pylons',
-    packages=find_packages(),
+    packages=find_packages('src', exclude=['ez_setup']),
+    namespace_packages=['{{ cookiecutter.namespace }}'],
+    package_dir={'': 'src'},
     include_package_data=True,
     zip_safe=False,
     extras_require={
@@ -60,11 +62,11 @@ setup(
     install_requires=requires,
     entry_points={
         'paste.app_factory': [
-            'main = {{ cookiecutter.repo_name }}:main',
+            'main = {{ cookiecutter.namespace }}.{{ cookiecutter.repo_name }}:main',
         ],
         {%- if cookiecutter.backend == 'sqlalchemy' %}
         'console_scripts': [
-            'initialize_{{ cookiecutter.repo_name }}_db={{ cookiecutter.repo_name }}.scripts.initialize_db:main',
+            'initialize_{{ cookiecutter.repo_name }}_db={{ cookiecutter.namespace }}.{{ cookiecutter.repo_name }}.scripts.initialize_db:main',
         ],
         {%- endif %}
     },
