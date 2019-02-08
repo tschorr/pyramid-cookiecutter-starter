@@ -53,7 +53,7 @@ def includeme(config):
     """
     Initialize the model for a Pyramid app.
 
-    Activate this setup using ``config.include('{{ cookiecutter.repo_name }}.models')``.
+    Activate this setup using ``config.include('{{ cookiecutter.namespace }}.{{ cookiecutter.repo_name }}.models')``.
 
     """
     settings = config.get_settings()
